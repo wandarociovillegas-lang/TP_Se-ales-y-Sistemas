@@ -1,0 +1,85 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.io import wavfile
+
+fs, x = wavfile.read("lento2.wav")
+x = x / np.max(np.abs(x))
+t= np.arange(len(x)) / fs
+
+#segmentaciones de las vocales
+inicio_A1 = 0.85
+final_A1 = 1.58
+
+inicio_A2 = 2.2
+final_A2 = 2.9
+
+inicio_o = 3.52
+final_o = 4.25
+
+indice_inicio_A1 = int(inicio_A1 * fs)
+indice_final_A1 = int(final_A1 * fs)
+
+indice_inicio_A2 = int(inicio_A2 * fs)
+indice_final_A2 = int(final_A2 * fs)
+
+indice_inicio_O = int(inicio_o * fs)
+indice_final_O = int(final_o * fs)
+
+seg_A1 = x[indice_inicio_A1 : indice_final_A1]
+seg_A2 = x[indice_inicio_A2 : indice_final_A2]
+seg_o = x[indice_inicio_O : indice_final_O]
+
+
+t_A1_lento = t[indice_inicio_A1 : indice_final_A1]
+t_A2_lento = t[indice_inicio_A2 : indice_final_A2]
+
+
+###################### Gráficos de banda angosta ################################
+
+def espectrograma_angosta(seg, fs, nombre):
+
+    NFFT = min(4080, len(seg)//2)
+    overlap = 0.95 #aumento el solapamiento para mejor calidad de imagen
+
+    noverlap = int(NFFT*overlap)  
+
+    figsize = (10, 6)
+    plt.figure(figsize=figsize)
+    plt.specgram(seg, Fs=fs, NFFT = NFFT, noverlap= noverlap, cmap='gray', vmin=-110, vmax=-30)  
+    plt.ylim(0, 800)  
+    plt.colorbar(label='Intensidad (dB)')
+    plt.title(f'Espectrograma de banda angosta de {nombre}')
+    plt.xlabel('Tiempo (s)')
+    plt.ylabel('Frecuencia (Hz)')
+    plt.tight_layout()
+    plt.show()
+
+
+espectrograma_angosta(seg_A1, fs, "A1")
+espectrograma_angosta(seg_A2, fs, "A2")
+espectrograma_angosta(seg_o, fs, "O")
+
+
+###################### Gráficos de banda ancha ################################
+def espectrograma_ancha(seg, fs, nombre):
+
+    NFFT = min(512, len(seg)//4)
+    overlap = 0.95
+
+    noverlap = int(NFFT*overlap)  
+
+    figsize = (10, 6)
+    plt.figure(figsize=figsize)
+    plt.specgram(seg, Fs=fs, NFFT = NFFT, noverlap= noverlap, cmap='gray', vmin=-110, vmax=-30) 
+    plt.ylim(0, 4000)  
+    plt.colorbar(label='Intensidad (dB)')
+    plt.title(f'Espectrograma de banda ancha de {nombre}')
+    plt.xlabel('Tiempo (s)')
+    plt.ylabel('Frecuencia (Hz)')
+    plt.tight_layout()
+    plt.show()
+
+
+espectrograma_ancha(seg_A1, fs, "A1")
+espectrograma_ancha(seg_A2, fs, "A2")
+espectrograma_ancha(seg_o, fs, "O")
