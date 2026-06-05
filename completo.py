@@ -72,7 +72,7 @@ def espectrograma_angosta(seg, fs, nombre):
     figsize = (10, 6)
     plt.figure(figsize=figsize)
     plt.specgram(seg, Fs=fs, NFFT = NFFT, noverlap= noverlap, cmap='RdBu_r', vmin=-110, vmax=-30)  
-    plt.ylim(0, 800)  
+    plt.ylim(0, 4000)  
     plt.colorbar(label='Intensidad (dB)')
     plt.title(f'Espectrograma de banda angosta de {nombre}')
     plt.xlabel('Tiempo (s)')
