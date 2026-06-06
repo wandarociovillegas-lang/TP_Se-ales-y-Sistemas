@@ -82,7 +82,7 @@ def espectrograma_angosta(seg, fs, nombre):
 
 def espectrograma_ancha(seg, fs, nombre):
 
-    NFFT = min(512, len(seg)//4)
+    NFFT = min(1024, len(seg)//4)
     overlap = 0.95
 
     noverlap = int(NFFT*overlap)  
