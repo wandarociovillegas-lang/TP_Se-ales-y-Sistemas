@@ -39,7 +39,7 @@ def espectrograma_ancha_completo(x, fs):
     plt.tight_layout()
     plt.show()
 
-#punto 3
+#punto 6
 inicio_A1 = 1.32
 final_A1 = 2.44
 
