@@ -2,7 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
 
-fs, x = wavfile.read("lento2.wav")
+audio_lento = "audiolento.wav"
+
+fs, x = wavfile.read(audio_lento)
 x = x / np.max(np.abs(x))
 
 #punto 4
@@ -24,7 +26,7 @@ def espectrograma_angosta_completo(x, fs):
 
 #punto 5
 def espectrograma_ancha_completo(x, fs):
-    NFFT = int(512)       
+    NFFT = int(1040)       
     overlap = 0.9      
 
     noverlap = int(NFFT*overlap)  
@@ -40,14 +42,14 @@ def espectrograma_ancha_completo(x, fs):
     plt.show()
 
 #punto 6
-inicio_A1 = 1.32
+inicio_A1 = 0.83
 final_A1 = 2.44
 
-inicio_A2 = 3.02
-final_A2 = 4.17
+inicio_A2 = 2.73
+final_A2 = 4.21
 
-inicio_o = 4.94
-final_o = 5.85
+inicio_o = 4.60
+final_o = 5.88
 
 indice_inicio_A1 = int(inicio_A1 * fs)
 indice_final_A1 = int(final_A1 * fs)
@@ -109,6 +111,7 @@ espectrograma_angosta(seg_o, fs, "O")
 espectrograma_ancha(seg_A1, fs, "A1")
 espectrograma_ancha(seg_A2, fs, "A2")
 espectrograma_ancha(seg_o, fs, "O")
+
 
 
 
