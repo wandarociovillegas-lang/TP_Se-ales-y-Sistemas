@@ -14,7 +14,7 @@ def espectrograma_angosta_completo(x, fs):
     figsize = (10, 6)
     plt.figure(figsize=figsize)
     plt.specgram(x, Fs=fs, NFFT=NFFT, noverlap=noverlap, cmap='RdBu_r', vmin=-110, vmax=-30)  
-    plt.ylim(0, 800)  
+    plt.ylim(0, 2000)  
     plt.colorbar(label='Intensidad (dB)')
     plt.title('Espectrograma de banda angosta de toda la palabra')
     plt.xlabel('Tiempo (s)')
