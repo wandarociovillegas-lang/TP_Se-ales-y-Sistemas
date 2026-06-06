@@ -5,7 +5,7 @@ from scipy.io import wavfile
 fs, x = wavfile.read("lento2.wav")
 x = x / np.max(np.abs(x))
 
-#punto 1
+#punto 4
 def espectrograma_angosta_completo(x, fs):
     NFFT = int(20480)       
     overlap = 0.9     
@@ -22,7 +22,7 @@ def espectrograma_angosta_completo(x, fs):
     plt.tight_layout()
     plt.show()
 
-#punto 2
+#punto 5
 def espectrograma_ancha_completo(x, fs):
     NFFT = int(512)       
     overlap = 0.9      
