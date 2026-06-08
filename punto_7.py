@@ -95,6 +95,7 @@ f0_o = 1/T_0
 
 #========= nueva señal ============#
 signal_y = signal_x.copy()
+print(signal_y)
 
 def remover_segmento(indice_inicial, indice_final):
     signal_y[indice_inicial: indice_final] = np.zeros(indice_final-indice_inicial)
@@ -103,15 +104,18 @@ remover_segmento(indice_inicio_A1, indice_final_A1)
 remover_segmento(indice_inicio_A2, indice_final_A2)
 remover_segmento(indice_inicio_O, indice_final_O)
 
+t_signal_x = np.arange(len(signal_x)) / fs
+t_signal_y = np.arange(len(signal_y)) / fs
+
 plt.subplot(2, 1, 1)
-plt.plot(signal_x)
-plt.xlabel("Muestras")
+plt.plot(t_signal_x, signal_x)
+plt.xlabel("Tiempo [s]")
 plt.ylabel("Amplitud")
 plt.title("Señal original")
 
 plt.subplot(2, 1, 2)
-plt.plot(signal_y)
-plt.xlabel("Muestras")
+plt.plot(t_signal_y, signal_y)
+plt.xlabel("Tiempo [s]")
 plt.ylabel("Amplitud")
 plt.title("Señal modificada")
 
@@ -134,26 +138,29 @@ plt.show()
 
     
 #========= graficar =======#
+t_A1 = np.arange(len(seg_A1)) / fs
+t_A2 = np.arange(len(seg_A2)) / fs
+t_o = np.arange(len(seg_o)) / fs
 
 plt.subplot(3, 1, 1)
-plt.plot(seg_A1)
-plt.stem(picos_A1, seg_A1[picos_A1],linefmt="red", markerfmt="x", basefmt="none")
+plt.plot(t_A1, seg_A1)
+plt.stem(t_A1[picos_A1], seg_A1[picos_A1],linefmt="red", markerfmt="x", basefmt="none")
 plt.title("Señal de la vocal A1")
-plt.xlabel("Muestras")
+plt.xlabel("Tiempo [s]")
 plt.ylabel("Amplitud")
 
 plt.subplot(3, 1, 2)
-plt.plot(seg_A2)
-plt.stem(picos_A2, seg_A2[picos_A2], linefmt="red", markerfmt="x", basefmt="none")
+plt.plot(t_A2, seg_A2)
+plt.stem(t_A2[picos_A2], seg_A2[picos_A2], linefmt="red", markerfmt="x", basefmt="none")
 plt.title("Señal de la vocal A2")
-plt.xlabel("Muestras")
+plt.xlabel("Tiempo [s]")
 plt.ylabel("Amplitud")
 
 plt.subplot(3, 1, 3)
-plt.plot(seg_o)
-plt.stem(picos_o, seg_o[picos_o], linefmt="red", markerfmt="x", basefmt="none" )
+plt.plot(t_o, seg_o)
+plt.stem(t_o[picos_o], seg_o[picos_o], linefmt="red", markerfmt="x", basefmt="none" )
 plt.title("Señal de la vocal A2")
-plt.xlabel("Muestras")
+plt.xlabel("Tiempo [s]")
 plt.ylabel("Amplitud")
 
 plt.tight_layout()
