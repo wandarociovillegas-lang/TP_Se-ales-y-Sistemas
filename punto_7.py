@@ -95,7 +95,6 @@ f0_o = 1/T_0
 
 #========= nueva señal ============#
 signal_y = signal_x.copy()
-print(signal_y)
 
 def remover_segmento(indice_inicial, indice_final):
     signal_y[indice_inicial: indice_final] = np.zeros(indice_final-indice_inicial)
