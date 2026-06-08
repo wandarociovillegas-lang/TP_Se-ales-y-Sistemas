@@ -1,15 +1,14 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy import signal
-import librosa
+from scipy.io import wavfile
 
-archivo ="/home/marcos/UBA/sys_jupyter/tp2/lento2.wav"
+audio_lento = "audiolento.wav"
 
-signal_x ,fs = librosa.load(archivo, sr=None)
+fs, signal_x = wavfile.read(audio_lento)
+signal_x = signal_x / np.max(np.abs(signal_x ))
 signal_y = []
 
-#plt.plot(signal_x)
-#plt.show()
 
 #========== ventanas ===========#
 inicio_A1 = 1.32
@@ -39,8 +38,6 @@ seg_o = signal_x[indice_inicio_O : indice_final_O]
 picos_A1, props_A1 = signal.find_peaks(-1*seg_A1, height= 0.007, distance=500 )
 picos_A2, props_A2 = signal.find_peaks(-1*seg_A2, height=0.0049, distance=500)
 picos_o, props_o = signal.find_peaks(-1*seg_o, height= 0.0040, distance=600)
-print("primer pico", picos_A1[0])
-
 
 #==== periodo promedio, intervalos y secuencias ======#
 
@@ -68,13 +65,27 @@ def secuenciar(picos, inicio):
         secuencia.append(picos[e]+inicio)
     return secuencia
 
+#periodo en muestras
 periodo_medio_A1 = dif_promedio(picos_A1) # = 650.0666666666667
 periodo_medio_A2 = dif_promedio(picos_A2) # = 643.624203821656
 periodo_medio_o = dif_promedio(picos_o) # = 742.4766355140187
 
-periodos_A1=dif_local(picos_A1)
-periodos_A2=dif_local(picos_A2)
-periodos_o=dif_local(picos_o)
+periodos_A1 = dif_local(picos_A1)
+periodos_A2 = dif_local(picos_A2)
+periodos_o = dif_local(picos_o)
+
+
+#periodos y frecuencias fundamentales de las vocales
+T_A1 = periodo_medio_A1/fs
+f0_A1 = 1/T_A1
+
+T_A2 = periodo_medio_A2/fs
+f0_A2 = 1/T_A2
+
+T_0 = periodo_medio_o/fs
+f0_o = 1/T_0
+
+
 
 # hasta aca consegui la distancia promedio entre los periodos, las distancias individuales entre los periodos, y la secuencia
 # las secuencias tambien ubican los picos pero ahora desde la señal entera y no el segmento
@@ -83,9 +94,8 @@ periodos_o=dif_local(picos_o)
 #plt.show()
 
 #========= nueva señal ============#
-plt.plot(signal_x)
-plt.show()
 signal_y = signal_x.copy()
+print(signal_y)
 
 def remover_segmento(indice_inicial, indice_final):
     signal_y[indice_inicial: indice_final] = np.zeros(indice_final-indice_inicial)
@@ -96,8 +106,17 @@ remover_segmento(indice_inicio_O, indice_final_O)
 
 plt.subplot(2, 1, 1)
 plt.plot(signal_x)
+plt.xlabel("Muestras")
+plt.ylabel("Amplitud")
+plt.title("Señal original")
+
 plt.subplot(2, 1, 2)
 plt.plot(signal_y)
+plt.xlabel("Muestras")
+plt.ylabel("Amplitud")
+plt.title("Señal modificada")
+
+plt.tight_layout()
 plt.show()
 
 #========= ventaneo =======#
@@ -120,17 +139,23 @@ plt.show()
 plt.subplot(3, 1, 1)
 plt.plot(seg_A1)
 plt.stem(picos_A1, seg_A1[picos_A1],linefmt="red", markerfmt="x", basefmt="none")
+plt.title("Señal de la vocal A1")
+plt.xlabel("Muestras")
+plt.ylabel("Amplitud")
 
 plt.subplot(3, 1, 2)
 plt.plot(seg_A2)
 plt.stem(picos_A2, seg_A2[picos_A2], linefmt="red", markerfmt="x", basefmt="none")
+plt.title("Señal de la vocal A2")
+plt.xlabel("Muestras")
+plt.ylabel("Amplitud")
 
 plt.subplot(3, 1, 3)
 plt.plot(seg_o)
 plt.stem(picos_o, seg_o[picos_o], linefmt="red", markerfmt="x", basefmt="none" )
+plt.title("Señal de la vocal A2")
+plt.xlabel("Muestras")
+plt.ylabel("Amplitud")
 
+plt.tight_layout()
 plt.show()
-
-
-
-
