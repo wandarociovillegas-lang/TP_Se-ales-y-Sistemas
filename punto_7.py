@@ -70,20 +70,18 @@ periodo_medio_A1 = dif_promedio(picos_A1) # = 650.0666666666667
 periodo_medio_A2 = dif_promedio(picos_A2) # = 643.624203821656
 periodo_medio_o = dif_promedio(picos_o) # = 742.4766355140187
 
+#periodos en tiempo
 periodos_A1 = dif_local(picos_A1)
 periodos_A2 = dif_local(picos_A2)
 periodos_o = dif_local(picos_o)
 
 
-#periodos y frecuencias fundamentales de las vocales
-T_A1 = periodo_medio_A1/fs
-f0_A1 = 1/T_A1
+#frecuencias fundamentales de las vocales
+f0_A1 = 1/periodos_A1
 
-T_A2 = periodo_medio_A2/fs
-f0_A2 = 1/T_A2
+f0_A2 = 1/periodos_A2
 
-T_0 = periodo_medio_o/fs
-f0_o = 1/T_0
+f0_o = 1/periodos_o
 
 
 
