@@ -85,7 +85,7 @@ periodos_o=dif_local(picos_o)
 #========= nueva señal ============#
 plt.plot(signal_x)
 plt.show()
-signal_y = signal_x
+signal_y = signal_x.copy()
 
 def remover_segmento(indice_inicial, indice_final):
     signal_y[indice_inicial: indice_final] = np.zeros(indice_final-indice_inicial)
