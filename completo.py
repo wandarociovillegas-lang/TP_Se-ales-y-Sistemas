@@ -42,14 +42,14 @@ def espectrograma_ancha_completo(x, fs):
     plt.show()
 
 #punto 6
-inicio_A1 = 0.83
+inicio_A1 = 1.32
 final_A1 = 2.44
 
-inicio_A2 = 2.73
-final_A2 = 4.21
+inicio_A2 = 3.02
+final_A2 = 4.17
 
-inicio_o = 4.60
-final_o = 5.88
+inicio_o = 4.94
+final_o = 5.85
 
 indice_inicio_A1 = int(inicio_A1 * fs)
 indice_final_A1 = int(final_A1 * fs)
