@@ -22,8 +22,9 @@ orden =  4 #calidad del filtro
 
 
 def aplicar_filtro_pasabajos(signal_entrada, fc, fs_entrada):
+    orden = 100
+    cant_coef = orden + 1  # longitud del filtro FIR
     
-    cant_coef = 101  # longitud del filtro FIR
     h = firwin(cant_coef, cutoff=fc, fs=fs_entrada, window="hamming")
     signal_filtrada = lfilter(h, 1, signal_entrada)
 
