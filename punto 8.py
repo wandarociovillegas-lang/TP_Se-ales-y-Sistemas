@@ -24,7 +24,7 @@ orden =  4 #calidad del filtro
 def aplicar_filtro_pasabajos(signal_entrada, fc, fs_entrada):
     orden = 100
     cant_coef = orden + 1  # longitud del filtro FIR
-    
+
     h = firwin(cant_coef, cutoff=fc, fs=fs_entrada, window="hamming")
     signal_filtrada = lfilter(h, 1, signal_entrada)
 
@@ -86,6 +86,11 @@ def espectrograma_ancha_completo(x, fs, NFFT,nombre):
 espectrograma_angosta_completo(signal_entrada, fs_entrada, int(20480), "original")
 espectrograma_angosta_completo(signal_filtrada, fs_entrada, int(20480), "filtrada")
 espectrograma_angosta_completo(signal_salida, fs_salida, int(20480),"salida")
-espectrograma_ancha_completo(signal_salida, fs_salida, int(768),"salida")
 espectrograma_angosta_completo(signal_rapida, fs_rapido, int(4096), "rápida") 
+
+espectrograma_ancha_completo(signal_entrada, fs_entrada, int(1040), "original")
+espectrograma_ancha_completo(signal_filtrada, fs_entrada, int(1040), "filtrada")
+espectrograma_ancha_completo(signal_salida, fs_salida, int(768),"salida")
 espectrograma_ancha_completo(signal_rapida, fs_rapido, int(512), "rápida")
+
+
