@@ -54,6 +54,7 @@ def filtro_antialiasing(x, fc, fs, orden):
 
     return y
 
+N = 2 #factor del decimador
 fc = fs_entrada /(2 * N )  #frecuencia de corte
 orden =  100 #calidad del filtro
 
@@ -62,8 +63,6 @@ signal_filtrada = filtro_antialiasing(signal_entrada, fc, fs_entrada, orden)
 
 
 #################################     decimador       #################################
-N = 2 #factor del decimador
-
 def decimador(x, n):
     return x[::n]
 
