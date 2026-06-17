@@ -14,28 +14,55 @@ fs_rapido, x = wavfile.read(audio_rapido)
 signal_rapida = x/ np.max(np.abs(x))
 
 
-N = 2 #escala del decimador
-
 ################################# filtro antialiasing #################################
+
+def filtro_pasabajos_ventana(fc, fs, orden):
+    h = np.zeros(orden + 1) #lleno un array de ceros con el tamaño de cantidad de coeficientes = orden + 1
+    wc = 2 * np.pi * fc / fs  #fc a wc discreta
+
+    #coeficientes de Fourier ak del filtro ideal siendo una función sinc
+    for n in range(orden + 1):
+        k = n - orden/2
+
+        if k == 0:
+            h_ideal = wc/np.pi
+        else:
+            h_ideal = np.sin(wc*k)/(np.pi*k)
+
+        #eligiendo ventanear con ventana de Hamming
+        window_hamming = 0.54 - 0.46*np.cos(2*np.pi*n/orden)
+        h[n] = h_ideal * window_hamming
+
+    return h
+
+
+def convolucion(x, h):
+    y = np.zeros(len(x)) #lleno un array de ceros con el mismo tamaño que x
+
+    for n in range(len(x)):
+        suma = 0
+        for k in range(len(h)):
+            if n-k >= 0:
+                suma += h[k]*x[n-k]
+        y[n] = suma
+
+    return y
+
+def filtro_antialiasing(x, fc, fs, orden):
+    h = filtro_pasabajos_ventana(fc, fs, orden)
+    y = convolucion(x, h)
+
+    return y
+
 fc = fs_entrada /(2 * N )  #frecuencia de corte
-orden =  4 #calidad del filtro
+orden =  100 #calidad del filtro
 
 
-def aplicar_filtro_pasabajos(signal_entrada, fc, fs_entrada):
-    orden = 100
-    cant_coef = orden + 1  # longitud del filtro FIR
-
-    h = firwin(cant_coef, cutoff=fc, fs=fs_entrada, window="hamming")
-    signal_filtrada = lfilter(h, 1, signal_entrada)
-
-    return signal_filtrada
-
-
-
-signal_filtrada = aplicar_filtro_pasabajos(signal_entrada, fc, fs_entrada)
+signal_filtrada = filtro_antialiasing(signal_entrada, fc, fs_entrada, orden)
 
 
 #################################     decimador       #################################
+N = 2 #factor del decimador
 
 def decimador(x, n):
     return x[::n]
@@ -96,7 +123,6 @@ plt.grid()
 
 plt.tight_layout(pad = 0.5)
 plt.show()
-
 
 
 #################################   espectrogramas  #################################
