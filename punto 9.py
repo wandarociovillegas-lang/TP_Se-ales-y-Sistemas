@@ -57,6 +57,60 @@ fs_salida = fs_rapido
 sf.write("audiorapido_velocidad_lenta.wav", signal_salida, fs_salida)
 
 
+#################################   gráficos temporales  #################################
+
+t_rapido = np.arange(len(signal_rapida)) / fs_rapido
+t_expandida = np.arange(len(signal_expandida)) / fs_expandida
+t_salida = np.arange(len(signal_salida)) /fs_salida
+
+t_entrada = np.arange(len(signal_entrada)) /fs_entrada
+
+plt.figure(figsize=(12, 8))
+plt.subplot(3, 1, 1)
+plt.plot(t_rapido, signal_rapida)
+plt.title("Señal de voz rápida")
+plt.ylabel("Amplitud")
+plt.xlabel("Tiempo [s]")
+plt.grid()
+
+
+plt.subplot(3, 1, 2)
+plt.plot(t_expandida, signal_expandida)
+plt.title("Señal de voz rápida expandida")
+plt.ylabel("Amplitud")
+plt.xlabel("Tiempo [s]")
+plt.grid()
+
+
+plt.subplot(3, 1, 3)
+plt.plot(t_salida, signal_salida)
+plt.title("Señal de voz rápida expandida filtrada")
+plt.ylabel("Amplitud")
+plt.xlabel("Tiempo [s]")
+plt.grid()
+
+plt.tight_layout(pad = 0.5)
+plt.show()
+
+plt.subplot(2, 1, 1)
+plt.plot(t_salida, signal_salida)
+plt.title("Señal de voz rápida expandida filtrada")
+plt.ylabel("Amplitud")
+plt.xlabel("Tiempo [s]")
+plt.grid()
+
+
+plt.subplot(2, 1, 2)
+plt.plot(t_entrada, signal_entrada)
+plt.title("Señal de voz lenta")
+plt.ylabel("Amplitud")
+plt.xlabel("Tiempo [s]")
+plt.grid()
+
+plt.tight_layout(pad = 0.5)
+plt.show()
+
+
 #################################   espectrogramas  #################################
 
 def espectrograma_angosta_completo(x, fs, NFFT, nombre):       
