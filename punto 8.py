@@ -55,28 +55,39 @@ t_salida = np.arange(len(signal_salida)) /fs_salida
 t_rapido = np.arange(len(signal_rapida)) / fs_rapido
 
 plt.figure(figsize=(12, 8))
-plt.subplot(4, 1, 1)
+plt.subplot(3, 1, 1)
 plt.plot(t_entrada, signal_entrada)
 plt.title("Señal de voz lenta")
 plt.ylabel("Amplitud")
 plt.xlabel("Tiempo [s]")
 plt.grid()
 
-plt.subplot(4, 1, 2)
+plt.subplot(3, 1, 2)
 plt.plot(t_entrada, signal_filtrada)
 plt.title("Señal de voz lenta filtrada")
 plt.ylabel("Amplitud")
 plt.xlabel("Tiempo [s]")
 plt.grid()
 
-plt.subplot(4, 1, 3)
+plt.subplot(3, 1, 3)
 plt.plot(t_salida, signal_salida)
 plt.title("Señal de voz lenta filtrada decimada")
 plt.ylabel("Amplitud")
 plt.xlabel("Tiempo [s]")
 plt.grid()
 
-plt.subplot(4, 1, 4)
+plt.tight_layout(pad = 0.5)
+plt.show()
+
+plt.subplot(2, 1, 1)
+plt.plot(t_salida, signal_salida)
+plt.title("Señal de voz lenta filtrada decimada")
+plt.ylabel("Amplitud")
+plt.xlabel("Tiempo [s]")
+plt.grid()
+
+
+plt.subplot(2, 1, 2)
 plt.plot(t_rapido, signal_rapida)
 plt.title("Señal de voz rápida")
 plt.ylabel("Amplitud")
@@ -85,6 +96,7 @@ plt.grid()
 
 plt.tight_layout(pad = 0.5)
 plt.show()
+
 
 
 #################################   espectrogramas  #################################
