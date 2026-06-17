@@ -149,7 +149,7 @@ espectrograma_angosta_completo(signal_rapida, fs_rapido, int(4096), "rápida")
 espectrograma_ancha_completo(signal_rapida, fs_rapido, int(512), "rápida")
 
 espectrograma_angosta_completo(signal_expandida, fs_expandida, int(4096), "expandida")
-espectrograma_ancha_completo(signal_expandida, fs_expandida, int(512), "expandida") 
+espectrograma_ancha_completo(signal_expandida, fs_expandida, int(1024), "expandida") 
 
 espectrograma_angosta_completo(signal_salida, fs_salida, int(4096), "salida") 
 espectrograma_ancha_completo(signal_salida, fs_salida, int(512), "salida") 
