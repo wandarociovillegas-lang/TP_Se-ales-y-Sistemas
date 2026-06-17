@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
-from scipy.signal import firwin, lfilter
 import soundfile as sf
 
 audio_lento = "audio_lento.wav"
