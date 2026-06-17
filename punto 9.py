@@ -60,7 +60,7 @@ sf.write("audiorapido_velocidad_lenta.wav", signal_salida, fs_salida)
 #################################   gráficos temporales  #################################
 
 t_rapido = np.arange(len(signal_rapida)) / fs_rapido
-t_expandida = np.arange(len(signal_expandida)) / fs_expandida
+t_expandida = np.arange(len(signal_expandida)) / fs_rapido
 t_salida = np.arange(len(signal_salida)) /fs_salida
 
 t_entrada = np.arange(len(signal_entrada)) /fs_entrada
