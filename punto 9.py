@@ -34,20 +34,20 @@ fs_expandida = fs_rapido * N #porque tengo el doble de muestras
 
 #################################  interpolador  #################################
 
-def interpolador_ideal(x, fs_expandida, N):
+def interpolador_ideal(x, fs_rapido , N):
     orden = 100
     cant_coef = orden + 1
 
-    fc = fs_expandida / (2 * N)
+    fc = fs_rapido / (2 * N)
 
-    h = firwin(cant_coef, cutoff = fc, fs = fs_expandida, window = "hamming")
+    h = firwin(cant_coef, cutoff = fc, fs = fs_rapido, window = "hamming")
 
     signal_interpolada = lfilter(h,1, x)
     signal_interpolada *= N  #ganancia del interpolador
 
     return signal_interpolada
 
-signal_salida = interpolador_ideal(signal_expandida, fs_expandida, N)
+signal_salida = interpolador_ideal(signal_expandida, fs_rapido, N)
 
 
 
