@@ -146,7 +146,7 @@ def espectrograma_ancha_completo(x, fs, NFFT,nombre):
     noverlap = int(NFFT*overlap)  
     figsize = (10, 6)
     plt.figure(figsize=figsize)
-    plt.specgram(x, Fs=fs, NFFT=NFFT, noverlap=noverlap, cmap='RdBu_r', vmin=-110, vmax=-30)  
+    plt.specgram(x, Fs=fs, NFFT=NFFT, noverlap=noverlap, cmap='RdBu_r', vmin=-110, vmax=-30, pad_to=2048)  
     plt.ylim(0, 4000)  
     plt.colorbar(label='Intensidad (dB)')
     plt.title(f'Espectrograma de banda ancha de la señal {nombre}')
@@ -162,6 +162,8 @@ espectrograma_angosta_completo(signal_rapida, fs_rapido, int(4096), "rápida")
 
 espectrograma_ancha_completo(signal_entrada, fs_entrada, int(1040), "original")
 espectrograma_ancha_completo(signal_filtrada, fs_entrada, int(1040), "filtrada")
-espectrograma_ancha_completo(signal_salida, fs_salida, int(768),"salida")
+espectrograma_ancha_completo(signal_salida, fs_salida, int(512),"salida")
+espectrograma_ancha_completo(signal_rapida, fs_rapido, int(512), "rápida")
+
 espectrograma_ancha_completo(signal_rapida, fs_rapido, int(512), "rápida")
 
