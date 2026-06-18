@@ -9,8 +9,8 @@ audio_rapido = "rapido.wav"
 fs_entrada, x = wavfile.read(audio_lento)
 signal_entrada = x / np.max(np.abs(x))
 
-fs_rapido, x = wavfile.read(audio_rapido)
-signal_rapida = x/ np.max(np.abs(x))
+fs_rapido, y = wavfile.read(audio_rapido)
+signal_rapida =  y / np.max(np.abs(y))
 
 
 ################################# filtro antialiasing #################################
@@ -34,6 +34,11 @@ def filtro_pasabajos_ventana(fc, fs, orden):
 
     return h
 
+"""Tipo de ventanas
+- rectangular       w = 1
+- hann              w = 0.5 - 0.5*np.cos(2*np.pi*n/orden)
+- blackman          w = 0.42 - 0.5*np.cos(2*np.pi*n/orden) + 0.08*np.cos(4*np.pi*n/orden)
+"""
 
 def convolucion(x, h):
     y = np.zeros(len(x)) #lleno un array de ceros con el mismo tamaño que x
@@ -62,6 +67,7 @@ signal_filtrada = filtro_antialiasing(signal_entrada, fc, fs_entrada, orden)
 
 
 #################################     decimador       #################################
+
 def decimador(x, n):
     return x[::n]
 
@@ -155,6 +161,23 @@ def espectrograma_ancha_completo(x, fs, NFFT,nombre):
     plt.tight_layout()
     plt.show()
 
+#se desplazan los formantes entonces necesita otro ylim
+def espectrograma_ancha_salida(x, fs, NFFT,nombre):
+    overlap = 0.9      
+
+    noverlap = int(NFFT*overlap)  
+    figsize = (10, 6)
+    plt.figure(figsize=figsize)
+    plt.specgram(x, Fs=fs, NFFT=NFFT, noverlap=noverlap, cmap='RdBu_r', vmin=-110, vmax=-30, pad_to=2048)  
+    plt.ylim(0, 6000)  
+    plt.colorbar(label='Intensidad (dB)')
+    plt.title(f'Espectrograma de banda ancha de la señal {nombre}')
+    plt.xlabel('Tiempo (s)')
+    plt.ylabel('Frecuencia (Hz)')
+    plt.tight_layout()
+    plt.show()
+
+
 espectrograma_angosta_completo(signal_entrada, fs_entrada, int(20480), "original")
 espectrograma_angosta_completo(signal_filtrada, fs_entrada, int(20480), "filtrada")
 espectrograma_angosta_completo(signal_salida, fs_salida, int(20480),"salida")
@@ -162,8 +185,5 @@ espectrograma_angosta_completo(signal_rapida, fs_rapido, int(4096), "rápida")
 
 espectrograma_ancha_completo(signal_entrada, fs_entrada, int(1040), "original")
 espectrograma_ancha_completo(signal_filtrada, fs_entrada, int(1040), "filtrada")
-espectrograma_ancha_completo(signal_salida, fs_salida, int(512),"salida")
+espectrograma_ancha_salida(signal_salida, fs_salida, int(512),"salida")
 espectrograma_ancha_completo(signal_rapida, fs_rapido, int(512), "rápida")
-
-espectrograma_ancha_completo(signal_rapida, fs_rapido, int(512), "rápida")
-
