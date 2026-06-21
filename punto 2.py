@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
 
-audio_lento = "marcos6.wav"
+audio_lento = "lento2.wav"
 audio_rapido = "rapido.wav"
 
 fs_lento, x_lento = wavfile.read(audio_lento)
@@ -16,16 +16,16 @@ x_rapido = x_rapido / np.max(np.abs(x_rapido))
 t_rapido = np.arange(len(x_rapido)) / fs_rapido
 
 #ubico la A y la S a ojo en la señal lenta
-inicio_A1 = 1.32
-final_A1 = 2.44
+inicio_A1 = 0.85
+final_A1 = 1.58
 
-inicio_A2 = 3.02
-final_A2 = 4.17
+inicio_A2 = 2.2
+final_A2 = 2.9
 
-inicio_o = 4.94
-final_o = 5.85
+inicio_o = 3.52
+final_o = 4.25
 
-inicio_S = 4.36  #el audio no tiene s :(
+inicio_S = 4.36
 final_S = 5.14
 
 #accedo e indexo a los tiempos de muestras 
@@ -91,7 +91,7 @@ plt.show()
 
 #periodo y frecuencia en lenta
 #se toman 5 muestras de la A2
-t1_inicio_lenta = 2.807  #cambiar
+t1_inicio_lenta = 2.807
 t1_final_lenta = 2.815
 
 t2_inicio_lenta = 2.815
@@ -144,7 +144,7 @@ print(f"Periodo estimado en tiempo: {promedio_periodo_rapida} \nFrecuencia estim
 
 
 #señal de la o 
-t1_o_inicio_lenta = 3.588 #cambiar
+t1_o_inicio_lenta = 3.588
 t1_o_final_lenta = 3.596
 
 t2_o_inicio_lenta =3.605
