@@ -1,0 +1,118 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.io import wavfile
+
+audio_lento = "audiolento.wav"
+
+fs, x = wavfile.read(audio_lento)
+x = x / np.max(np.abs(x))
+
+#punto 4
+def espectrograma_angosta_completo(x, fs):
+    NFFT = int(20480)       
+    overlap = 0.9     
+
+    noverlap = int(NFFT*overlap)  
+    figsize = (10, 6)
+    plt.figure(figsize=figsize)
+    plt.specgram(x, Fs=fs, NFFT=NFFT, noverlap=noverlap, cmap='RdBu_r', vmin=-110, vmax=-30)  
+    plt.ylim(0, 2000)  
+    plt.colorbar(label='Intensidad (dB)')
+    plt.title('Espectrograma de banda angosta de toda la palabra')
+    plt.xlabel('Tiempo (s)')
+    plt.ylabel('Frecuencia (Hz)')
+    plt.tight_layout()
+    plt.show()
+
+#punto 5
+def espectrograma_ancha_completo(x, fs):
+    NFFT = int(1040)       
+    overlap = 0.9      
+
+    noverlap = int(NFFT*overlap)  
+    figsize = (10, 6)
+    plt.figure(figsize=figsize)
+    plt.specgram(x, Fs=fs, NFFT=NFFT, noverlap=noverlap, cmap='RdBu_r', vmin=-110, vmax=-30)  
+    plt.ylim(0, 4000)  
+    plt.colorbar(label='Intensidad (dB)')
+    plt.title('Espectrograma de banda ancha de toda la palabra')
+    plt.xlabel('Tiempo (s)')
+    plt.ylabel('Frecuencia (Hz)')
+    plt.tight_layout()
+    plt.show()
+
+#punto 6
+inicio_A1 = 1.32
+final_A1 = 2.44
+
+inicio_A2 = 3.02
+final_A2 = 4.17
+
+inicio_o = 4.94
+final_o = 5.85
+
+indice_inicio_A1 = int(inicio_A1 * fs)
+indice_final_A1 = int(final_A1 * fs)
+
+indice_inicio_A2 = int(inicio_A2 * fs)
+indice_final_A2 = int(final_A2 * fs)
+
+indice_inicio_O = int(inicio_o * fs)
+indice_final_O = int(final_o * fs)
+
+seg_A1 = x[indice_inicio_A1 : indice_final_A1]
+seg_A2 = x[indice_inicio_A2 : indice_final_A2]
+seg_o = x[indice_inicio_O : indice_final_O]
+
+def espectrograma_angosta(seg, fs, nombre):
+
+    NFFT = min(4080, len(seg)//2)
+    overlap = 0.95 #aumento el solapamiento para mejor calidad de imagen
+
+    noverlap = int(NFFT*overlap)  
+
+    figsize = (10, 6)
+    plt.figure(figsize=figsize)
+    plt.specgram(seg, Fs=fs, NFFT = NFFT, noverlap= noverlap, cmap='RdBu_r', vmin=-110, vmax=-30)  
+    plt.ylim(0, 4000)  
+    plt.colorbar(label='Intensidad (dB)')
+    plt.title(f'Espectrograma de banda angosta de {nombre}')
+    plt.xlabel('Tiempo (s)')
+    plt.ylabel('Frecuencia (Hz)')
+    plt.tight_layout()
+    plt.show()
+
+def espectrograma_ancha(seg, fs, nombre):
+
+    NFFT = min(1024, len(seg)//4)
+    overlap = 0.95
+
+    noverlap = int(NFFT*overlap)  
+
+    figsize = (10, 6)
+    plt.figure(figsize=figsize)
+    plt.specgram(seg, Fs=fs, NFFT = NFFT, noverlap= noverlap, cmap='RdBu_r', vmin=-110, vmax=-30) 
+    plt.ylim(0, 4000)  
+    plt.colorbar(label='Intensidad (dB)')
+    plt.title(f'Espectrograma de banda ancha de {nombre}')
+    plt.xlabel('Tiempo (s)')
+    plt.ylabel('Frecuencia (Hz)')
+    plt.tight_layout()
+    plt.show()
+
+
+#################################################################################################
+
+espectrograma_angosta_completo(x, fs)
+espectrograma_ancha_completo(x, fs)
+espectrograma_angosta(seg_A1, fs, "A1")
+espectrograma_angosta(seg_A2, fs, "A2")
+espectrograma_angosta(seg_o, fs, "O")
+espectrograma_ancha(seg_A1, fs, "A1")
+espectrograma_ancha(seg_A2, fs, "A2")
+espectrograma_ancha(seg_o, fs, "O")
+
+
+
+
+
