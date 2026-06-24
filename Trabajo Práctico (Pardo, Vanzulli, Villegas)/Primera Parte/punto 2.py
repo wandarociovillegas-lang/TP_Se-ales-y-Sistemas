@@ -162,7 +162,7 @@ t5_o_final_lenta = 3.669
 t1_o_lenta = t1_o_final_lenta - t1_o_inicio_lenta
 t2_o_lenta = t2_o_final_lenta - t2_o_inicio_lenta
 t3_o_lenta = t3_o_final_lenta - t3_o_inicio_lenta
-t4_o_lenta = t4_o_inicio_lenta - t4_o_final_lenta
+t4_o_lenta = t4_o_final_lenta - t4_o_inicio_lenta
 t5_o_lenta = t5_o_final_lenta - t5_o_inicio_lenta
 
 promedio_periodo_o_lenta = (t1_o_lenta + t2_o_lenta + t3_o_lenta + t4_o_lenta+ t5_o_lenta) / 5
